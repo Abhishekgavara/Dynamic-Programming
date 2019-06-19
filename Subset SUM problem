@@ -1,0 +1,46 @@
+/*package whatever //do not write package name here */
+
+import java.io.*;
+
+class Subset {
+    
+    static int Subset(int a[],int sum){
+        
+        int temp[][]=new int[a.length][sum+1];
+        for(int i=0;i<a.length;i++){
+            temp[i][0]=1;
+        }
+        for(int j=1;j<sum+1;j++){
+            if(j<a[0])
+            temp[0][j]=1;
+            else
+            temp[0][j]=0;
+        }
+        for(int i=1;i<a.length;i++){
+            
+            for(int j=1;j<sum+1;j++){
+                if(j<a[i])
+                {
+                    temp[i][j]=temp[i-1][j];
+                }
+                else if(temp[i][j]==1){
+                    temp[i][j]=temp[i-1][j];
+                }
+                else{
+                    temp[i][j]=temp[i-1][j-a[i]];
+                }
+            }
+        }
+        return temp[a.length-1][sum];
+        
+    }
+    
+	public static void main (String[] args) {
+	    int a[]={2,1,9,3,7,8,10};
+	    int k=Subset(a,60);
+if(k==1)
+System.out.println("TRUE");
+	    else
+	    System.out.println("FALSE");
+	}
+}
