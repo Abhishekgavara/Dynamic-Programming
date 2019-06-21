@@ -1,0 +1,50 @@
+import java.util.*;
+
+class OptimalBst{
+    
+    static int OptimalBst(int a[],int f[]){
+        
+        int temp[][]=new int[a.length][a.length];
+        
+        for(int i=0;i<a.length;i++){
+            temp[i][i]=f[i];
+        }
+        for(int l=2;l<a.length+1;l++){
+            
+            for(int i=0;i<a.length-l+1;i++){
+                
+                int j=i+l-1;
+           int min=300000000;
+           int sum=0;
+                for(int k=i;k<j+1;k++)
+                sum+=f[k];
+                
+                for(int k=i;k<j+1;k++){
+                    if(k==i)
+                    {
+                        min=Math.min(min,temp[k+1][j]);
+                    }
+                    else if(k==j){
+                        min=Math.min(min,temp[i][k-1]);
+                    }
+                    else{
+                        min=Math.min(min,temp[k+1][j]+temp[i][k-1]);
+                    }
+                }
+                temp[i][j]=sum+min;
+            }
+        }
+        return temp[0][a.length-1];
+    }
+    
+    public static void main(String[] args){
+        
+        int a[]={10,12,16,21};
+        int f[]={4,2,6,3};
+        System.out.println(OptimalBst(a,f));
+        
+    }
+    
+    
+}
+
