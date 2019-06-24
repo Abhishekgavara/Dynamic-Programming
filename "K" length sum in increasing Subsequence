@@ -1,0 +1,48 @@
+import java.util.*;
+
+
+class Kthsum{
+    
+    static int kthsum(int a[],int n,int k){
+    
+    int temp[][]=new int[n][k+1];
+    
+    for(int i=0;i<n;i++){
+        
+        Arrays.fill(temp[i],Integer.MIN_VALUE);
+    }
+    
+    for(int i=0;i<n;i++){
+        
+        temp[i][1]=a[i];
+    }
+    
+    for(int l=2;l<=k;l++){
+        
+        for(int i=1;i<n;i++) {
+            
+            for(int j=0;j<n;j++)
+            {
+                if(temp[j][l-1]!=Integer.MIN_VALUE && a[i]>a[j]){
+                    temp[i][l]=Math.max(temp[i][l],temp[j][l-1]+a[i]);
+                }
+            }
+        }
+    }
+    int max=Integer.MIN_VALUE;
+    for(int i=0;i<n;i++){
+        
+        if(max<temp[i][k])
+        max=temp[i][k];
+        
+        
+    }
+    return max;
+    
+}
+    public static void main(String[] args){
+        int a[]={3,4,-1,0,6,2,3,4,8,10};
+        int n=a.length;
+        System.out.println(kthsum(a,n,2));
+    }
+}
