@@ -1,0 +1,32 @@
+/*package whatever //do not write package name here */
+
+import java.io.*;
+
+class Rodproblem {
+    
+    static int cutrod(int val[],int l){
+        
+        int temp[][]=new int[val.length][l+1];
+        
+        for(int i=0;i<val.length;i++){
+            
+            for(int j=0;j<l+1;j++){
+                if(i==0){
+                    temp[i][j]=j*val[i];
+                }
+                else if(j<i+1){
+                    temp[i][j]=temp[i-1][j];
+                }
+                else{
+                    temp[i][j]=Math.max(temp[i-1][j],val[i]+temp[i][j-(i+1)]);
+                }
+                
+            }
+        }
+       return temp[val.length-1][l];
+    }
+	public static void main (String[] args) {
+	    int val[]={2,5,7,8};
+		System.out.println(cutrod(val,7));
+	}
+}
