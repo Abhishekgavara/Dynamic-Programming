@@ -1,0 +1,45 @@
+/*package whatever //do not write package name here */
+
+import java.io.*;
+
+class LongestPalindromicSub {
+    
+    static int LongestPalindrome(char a[],int n){
+        
+        int temp[][]=new int[n][n];
+        
+        for(int i=0;i<n;i++){
+            
+            for(int j=0;j<n;j++){
+                
+                if(j>i){
+                    temp[j][i]=0;
+                }
+                else if(j==i){
+                    temp[j][i]=1;
+                }
+            }
+        }
+        
+        for(int l=2;l<=a.length;l++){
+            for(int i=0;i<=a.length-l;i++){
+                int j=i+l-1;
+                if(a[i]!=a[j]){
+                    temp[i][j]=Math.max(temp[i][j-1],temp[i+1][j]);
+                }
+                else
+                {
+                    temp[i][j]=2+temp[i+1][j-1];
+                }
+            }
+        }
+        return temp[0][a.length-1];
+    }
+	public static void main (String[] args) {
+String str="agbcdcba";
+	    char a[]=str.toCharArray();
+	    int n=a.length;
+	    System.out.println(LongestPalindrome(a,n));
+	    
+	}
+}
