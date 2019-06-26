@@ -1,0 +1,68 @@
+//User function Template for Java
+import java.util.*;
+class Geeks 
+{  
+    static class Box{
+    
+    int l;
+    int w;
+    int h;
+    int area;
+    
+    Box(int l,int w,int h){
+        this.l=l;
+        this.w=w;
+        this.h=h;
+        area=l*w;
+    }
+   
+}
+    public static int maxHeight(int height[], int width[], int length[], int n)
+   {
+       // your code here
+        Box b[]=new Box[3*n];
+    
+    for(int i=0;i<n;i++){
+        
+        b[3*i]=new Box(Math.max(length[i],width[i]),Math.min(length[i],width[i]),height[i]);
+        b[3*i+1]=new Box(Math.max(length[i],height[i]),Math.min(length[i],height[i]),width[i]);
+        b[3*i+2]=new Box(Math.max(height[i],width[i]),Math.min(height[i],width[i]),length[i]);
+        
+        
+    }
+    
+    Arrays.sort(b,(b1,b2)->{
+    return  b2.area-b1.area;
+    });
+    
+   
+    
+    int temp[]=new int[3*n];
+    
+    for(int i=0;i<3*n;i++)
+    temp[i]=b[i].h;
+    
+    for(int i=0;i<3*n;i++){
+        
+        for(int j=i+1;j<3*n;j++){
+            
+            if(b[i].l>b[j].l && b[i].w>b[j].w)
+            temp[j]=Math.max(temp[j],temp[i]+b[j].h);
+        }
+    }
+    int max=0;
+    
+    for(int k:temp)
+    if(k>max)
+    max=k;
+    
+    return max;
+   }
+   public static void main(String[] args){
+       int h[]={4,5};
+       int l[]={1,3};
+       int w[]={2,2};
+       System.out.println(maxHeight(h,w,l,h.length));
+       
+   }
+}
